@@ -2,7 +2,7 @@ body {
   background: radial-gradient(circle at top, #111, #000);
   color: #0ff;
   font-family: 'Orbitron', sans-serif;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   display: flex;
   align-items: center;
@@ -13,10 +13,39 @@ body {
   text-align: center;
 }
 
+.glitch {
+  font-size: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.glitch::before {
+  color: #f0f;
+  transform: translate(2px, -2px);
+  animation: glitch 2s infinite alternate-reverse;
+}
+
+.glitch::after {
+  color: #0ff;
+  transform: translate(-2px, 2px);
+  animation: glitch 2s infinite alternate;
+}
+
 input {
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
+  box-sizing: border-box;
   color: #0ff;
   font-size: 1.5rem;
   padding: 0.75rem 1rem;
@@ -25,8 +54,51 @@ input {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+@media (max-width: 480px) {
+  body {
+    padding: 0 1rem;
+  }
+
+  .glitch {
+    font-size: 1.5rem;
+  }
+
+  input {
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    max-width: none;
+  }
+}
+
 input:focus {
   outline: none;
   border-color: #0ff;
   box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+.scrambling {
+  animation: shake 0.3s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(0, 255, 255, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 255, 1); }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
 }

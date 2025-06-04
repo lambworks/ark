@@ -6,6 +6,7 @@ function scramble(value) {
   let iterations = 0;
   clearInterval(interval);
   input.disabled = true;
+  input.classList.add('scrambling');
   interval = setInterval(() => {
     const scrambled = value.split('').map((char, idx) => {
       if (idx < iterations) return char;
@@ -16,6 +17,7 @@ function scramble(value) {
       clearInterval(interval);
       input.value = value;
       input.disabled = false;
+      input.classList.remove('scrambling');
     }
     iterations += 1;
   }, 50);
