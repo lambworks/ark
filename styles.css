@@ -25,6 +25,18 @@ input {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+@media (max-width: 480px) {
+  body {
+    padding: 0 1rem;
+  }
+
+  input {
+    font-size: 1.2rem;
+    padding: 0.5rem 0.75rem;
+    width: 90vw;
+  }
+}
+
 input:focus {
   outline: none;
   border-color: #0ff;
